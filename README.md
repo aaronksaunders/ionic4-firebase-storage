@@ -13,7 +13,7 @@ const options: CameraOptions = {
   mediaType: this.camera.MediaType.PICTURE
 };
 
-this.result = await this.camera.getPicture(options);
+let cameraInfo = await this.camera.getPicture(options);
 ```
 
 be sure to include the [cordova-file plugin](https://ionicframework.com/docs/native/file/) and the [cordova-camera plugin](https://ionicframework.com/docs/native/camera/)

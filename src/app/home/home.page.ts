@@ -18,9 +18,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    firebase.initializeApp({
-
-    });
+    firebase.initializeApp({});
   }
 
   async pickImage() {
@@ -31,14 +29,16 @@ export class HomePage implements OnInit {
       mediaType: this.camera.MediaType.PICTURE
     };
 
-    this.result = await this.camera.getPicture(options);
-    let blobInfo = await this.makeFileIntoBlob(this.result);
-    this.uploadToFirebase(blobInfo)
-      .then(_result => {
-        this.result = _result;
-        alert("File Upload Success")
-      })
-      .catch(e => (this.result = e));
+    try {
+      let cameraInfo = await this.camera.getPicture(options);
+      let blobInfo = await this.makeFileIntoBlob(cameraInfo);
+      let uploadInfo: any = await this.uploadToFirebase(blobInfo);
+
+      alert("File Upload Success " + uploadInfo.fileName);
+    } catch (e) {
+      console.log(e.message);
+      alert("File Upload Error " + e.message);
+    }
   }
 
   // FILE STUFF
@@ -82,6 +82,7 @@ export class HomePage implements OnInit {
    * @param _imageBlobInfo
    */
   uploadToFirebase(_imageBlobInfo) {
+    console.log("uploadToFirebase");
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage().ref("images/" + _imageBlobInfo.fileName);
 
@@ -89,8 +90,11 @@ export class HomePage implements OnInit {
 
       uploadTask.on(
         "state_changed",
-        _snapshot => {
-          console.log("snapshot progess " + JSON.stringify(_snapshot));
+        (_snapshot: any) => {
+          console.log(
+            "snapshot progess " +
+              (_snapshot.bytesTransferred / _snapshot.totalBytes) * 100
+          );
         },
         _error => {
           console.log(_error);
