@@ -57,6 +57,16 @@ be sure to include the [cordova-file plugin](https://ionicframework.com/docs/nat
   
 ### Things to notice in the code
 
+Use the beta versions of the @ionic/native modules
+
+```json
+  "@ionic-native/camera": "^5.0.0-beta.15",
+  "@ionic-native/core": "^5.0.0-beta.17",
+  "@ionic-native/file": "5.0.0-beta.15",
+  "@ionic-native/splash-screen": "5.0.0-beta.15",
+  "@ionic-native/status-bar": "5.0.0-beta.15",
+```
+
 ```javascript
 // notice the path for the import ends in ngx
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
