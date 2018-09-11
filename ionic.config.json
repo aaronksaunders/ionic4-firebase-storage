@@ -1,5 +1,7 @@
 {
   "name": "firebaseStorage4",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

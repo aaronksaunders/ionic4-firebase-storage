@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-button (click)="pickImage()">Pick Image</ion-button>
   The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  <pre>{{result | json}}</pre>
 </ion-content>
+
+
