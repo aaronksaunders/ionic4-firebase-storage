@@ -1,5 +1,6 @@
 # ionic4-firebase-storage
 
+> Updated October 30th 2019
 
 ### Magic of converting image from camera to blob for upload
 
@@ -8,9 +9,11 @@ camera code is directly copied from the [ionic-native documentation](https://ion
 ```javascript
 const options: CameraOptions = {
   quality: 80,
+  quality: 80,
   destinationType: this.camera.DestinationType.FILE_URI,
   encodingType: this.camera.EncodingType.JPEG,
-  mediaType: this.camera.MediaType.PICTURE
+  mediaType: this.camera.MediaType.ALLMEDIA,
+  sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
 };
 
 let cameraInfo = await this.camera.getPicture(options);
@@ -57,14 +60,14 @@ be sure to include the [cordova-file plugin](https://ionicframework.com/docs/nat
   
 ### Things to notice in the code
 
-Use the beta versions of the @ionic/native modules
+Use the versions of the @ionic/native modules
 
 ```json
-  "@ionic-native/camera": "^5.0.0-beta.15",
-  "@ionic-native/core": "^5.0.0-beta.17",
-  "@ionic-native/file": "5.0.0-beta.15",
-  "@ionic-native/splash-screen": "5.0.0-beta.15",
-  "@ionic-native/status-bar": "5.0.0-beta.15",
+  "@ionic-native/camera": "^5.16.0",
+  "@ionic-native/core": "^5.0.0",
+  "@ionic-native/file": "^5.16.0",
+  "@ionic-native/splash-screen": "^5.0.0",
+  "@ionic-native/status-bar": "^5.0.0",
 ```
 
 ```javascript
@@ -97,26 +100,33 @@ export class AppModule {}
 ```console
 Ionic:
 
-   ionic (Ionic CLI)          : 4.1.1 (/Users/aaronsaunders/.nvm/versions/node/v9.3.0/lib/node_modules/ionic)
-   Ionic Framework            : @ionic/angular 4.0.0-beta.7
-   @angular-devkit/core       : 0.7.5
-   @angular-devkit/schematics : 0.7.5
-   @angular/cli               : 6.1.5
-   @ionic/ng-toolkit          : 1.0.8
-   @ionic/schematics-angular  : 1.0.6
+   Ionic CLI                     : 5.2.7 (/Users/aaronksaunders/.nvm/versions/node/v10.15.1/lib/node_modules/ionic)
+   Ionic Framework               : @ionic/angular 4.11.3
+   @angular-devkit/build-angular : 0.801.3
+   @angular-devkit/schematics    : 8.1.3
+   @angular/cli                  : 8.1.3
+   @ionic/angular-toolkit        : 2.0.0
 
 Cordova:
 
-   cordova (Cordova CLI) : 8.0.0
-   Cordova Platforms     : ios 4.5.5
-   Cordova Plugins       : cordova-plugin-ionic-keyboard 2.1.2, cordova-plugin-ionic-webview 2.1.3, (and 7 other plugins)
+   Cordova CLI       : 9.0.0 (cordova-lib@9.0.1)
+   Cordova Platforms : ios 5.0.1
+   Cordova Plugins   : cordova-plugin-ionic-keyboard 2.2.0, cordova-plugin-ionic-webview 2.5.3, (and 7 other plugins)
+
+Utility:
+
+   cordova-res : not installed
+   native-run  : 0.2.9 
 
 System:
 
-   Android SDK Tools : 26.1.1 (/Users/aaronsaunders/Library/Android/sdk)
-   ios-deploy        : 1.9.2
-   NodeJS            : v9.3.0 (/Users/aaronsaunders/.nvm/versions/node/v9.3.0/bin/node)
-   npm               : 6.4.0
-   OS                : macOS High Sierra
-   Xcode             : Xcode 9.4.1 Build version 9F2000
+   Android SDK Tools : 26.1.1 (/Users/aaronksaunders/Library/Android/sdk)
+   ios-deploy        : 1.9.4
+   ios-sim           : 8.0.2
+   NodeJS            : v10.15.1 (/Users/aaronksaunders/.nvm/versions/node/v10.15.1/bin/node)
+   npm               : 6.11.2
+   OS                : macOS Mojave
+   Xcode             : Xcode 11.1 Build version 11A1027
+
+Aarons-iMac:ionic4-firebase-storage aaronksaunders$ 
 ```
