@@ -22,14 +22,15 @@ export class HomePage implements OnInit {
   }
 
   async pickImage() {
-    const options: CameraOptions = {
-      quality: 80,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
-
     try {
+      const options: CameraOptions = {
+        quality: 80,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.ALLMEDIA,
+        sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+      };
+
       let cameraInfo = await this.camera.getPicture(options);
       let blobInfo = await this.makeFileIntoBlob(cameraInfo);
       let uploadInfo: any = await this.uploadToFirebase(blobInfo);
