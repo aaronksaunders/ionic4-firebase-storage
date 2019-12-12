@@ -1,6 +1,8 @@
+import { async } from "@angular/core/testing";
 import { Component, OnInit } from "@angular/core";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { File } from "@ionic-native/file/ngx";
+import { WebView } from "@ionic-native/ionic-webview/ngx";
 
 // FIREBASE
 import * as firebase from "firebase";
@@ -13,7 +15,11 @@ import * as firebase from "firebase";
 export class HomePage implements OnInit {
   result;
 
-  constructor(private camera: Camera, private file: File) {}
+  constructor(
+    private camera: Camera,
+    private file: File,
+    private webview: WebView
+  ) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -28,7 +34,7 @@ export class HomePage implements OnInit {
         destinationType: this.camera.DestinationType.FILE_URI,
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.ALLMEDIA,
-        sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
       };
 
       let cameraInfo = await this.camera.getPicture(options);
@@ -45,36 +51,49 @@ export class HomePage implements OnInit {
   // FILE STUFF
   makeFileIntoBlob(_imagePath) {
     // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       let fileName = "";
-      this.file
-        .resolveLocalFilesystemUrl(_imagePath)
-        .then(fileEntry => {
-          let { name, nativeURL } = fileEntry;
 
-          // get the path..
-          let path = nativeURL.substring(0, nativeURL.lastIndexOf("/"));
-          console.log("path", path);
-          console.log("fileName", name);
+      const webSafePhoto = this.webview.convertFileSrc(_imagePath);
+      const response = await fetch(webSafePhoto);
 
-          fileName = name;
+      const blob = await response.blob();
 
-          // we are provided the name, so now read the file into
-          // a buffer
-          return this.file.readAsArrayBuffer(path, name);
-        })
-        .then(buffer => {
-          // get the buffer and make a blob to be saved
-          let imgBlob = new Blob([buffer], {
-            type: "image/jpeg"
-          });
-          console.log(imgBlob.type, imgBlob.size);
-          resolve({
-            fileName,
-            imgBlob
-          });
-        })
-        .catch(e => reject(e));
+      fileName = new Date().getTime() + ".jpeg";
+
+      resolve({
+        name : fileName,
+        blob
+      });
+
+      // this.file
+      //   .resolveLocalFilesystemUrl(_imagePath)
+      //   .then(fileEntry => {
+      //     let { name, nativeURL } = fileEntry;
+
+      //     // get the path..
+      //     let path = nativeURL.substring(0, nativeURL.lastIndexOf("/"));
+      //     console.log("path", path);
+      //     console.log("fileName", name);
+
+      //     fileName = name;
+
+      //     // we are provided the name, so now read the file into
+      //     // a buffer
+      //     return this.file.readAsArrayBuffer(path, name);
+      //   })
+      //   .then(buffer => {
+      //     // get the buffer and make a blob to be saved
+      //     let imgBlob = new Blob([buffer], {
+      //       type: "image/jpeg"
+      //     });
+      //     console.log(imgBlob.type, imgBlob.size);
+      //     resolve({
+      //       fileName,
+      //       imgBlob
+      //     });
+      //   })
+      //   .catch(e => reject(e));
     });
   }
 
