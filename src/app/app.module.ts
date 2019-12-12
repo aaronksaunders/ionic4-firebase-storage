@@ -1,3 +1,4 @@
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule, RouteReuseStrategy, Routes } from "@angular/router";
@@ -21,6 +22,7 @@ import { File } from '@ionic-native/file/ngx';
     Camera,
     StatusBar,
     SplashScreen,
+    WebView,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

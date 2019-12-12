@@ -57,43 +57,15 @@ export class HomePage implements OnInit {
       const webSafePhoto = this.webview.convertFileSrc(_imagePath);
       const response = await fetch(webSafePhoto);
 
-      const blob = await response.blob();
+      const imgBlob = await response.blob();
 
       fileName = new Date().getTime() + ".jpeg";
 
       resolve({
-        name : fileName,
-        blob
+        fileName,
+        imgBlob
       });
 
-      // this.file
-      //   .resolveLocalFilesystemUrl(_imagePath)
-      //   .then(fileEntry => {
-      //     let { name, nativeURL } = fileEntry;
-
-      //     // get the path..
-      //     let path = nativeURL.substring(0, nativeURL.lastIndexOf("/"));
-      //     console.log("path", path);
-      //     console.log("fileName", name);
-
-      //     fileName = name;
-
-      //     // we are provided the name, so now read the file into
-      //     // a buffer
-      //     return this.file.readAsArrayBuffer(path, name);
-      //   })
-      //   .then(buffer => {
-      //     // get the buffer and make a blob to be saved
-      //     let imgBlob = new Blob([buffer], {
-      //       type: "image/jpeg"
-      //     });
-      //     console.log(imgBlob.type, imgBlob.size);
-      //     resolve({
-      //       fileName,
-      //       imgBlob
-      //     });
-      //   })
-      //   .catch(e => reject(e));
     });
   }
 
