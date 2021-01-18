@@ -1,5 +1,6 @@
 # ionic4-firebase-storage
 
+#### See additional content on youtube - https://www.youtube.com/channel/UCMCcqbJpyL3LAv3PJeYz2bg
 > Updated October 30th 2019
 
 ### Magic of converting image from camera to blob for upload
